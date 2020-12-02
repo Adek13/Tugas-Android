@@ -39,10 +39,11 @@ public class BeritaViewModel extends ViewModel {
 
     public LiveData<BeritaResponse> postBeritaRepository(Berita beritaPayload) {
         if (mutableBeritaLiveData == null) {
+//            System.out.println("tes11111");
             beritasRepository = BeritasRepository.getInstance();
         }
         mutableBeritaLiveData = beritasRepository.postBerita(beritaPayload);
-
+//        System.out.println("tes222222");
         return mutableBeritaLiveData;
     }
 }

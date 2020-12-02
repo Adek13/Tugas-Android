@@ -1,7 +1,9 @@
-package com.example.api_get_post_berita.activities;
+package com.example.api_get_post_berita;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,10 +13,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.api_get_post_berita.R;
+import com.example.api_get_post_berita.adapter.BeritaAdapter;
 import com.example.api_get_post_berita.model.Berita;
 import com.example.api_get_post_berita.viewmodels.BeritaViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -24,6 +29,9 @@ public class AddActivity extends AppCompatActivity {
     FloatingActionButton refreshButton;
     Button saveButton;
     ImageView addImageView;
+    List<Berita> beritas;
+    ArrayList<Berita> beritaArrayList = new ArrayList<>();
+    BeritaAdapter beritaAdapter;
 
     BeritaViewModel beritaViewModel;
 
@@ -33,6 +41,22 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
         findViewById();
         onClickGroup();
+        init();
+
+    }
+
+    void init(){
+        beritaAdapter = new BeritaAdapter(getApplicationContext(), beritaArrayList);
+
+        beritaViewModel = ViewModelProviders.of(this).get(BeritaViewModel.class);
+
+        beritaViewModel.init();
+        beritaViewModel.getBeritasRepository().observe(this, beritasResponse -> {
+            beritas = beritasResponse.getData();
+            beritaArrayList.clear();
+            beritaArrayList.addAll(beritas);
+            beritaAdapter.notifyDataSetChanged();
+        });
     }
 
     void findViewById(){
@@ -74,14 +98,14 @@ public class AddActivity extends AppCompatActivity {
 
     void postBerita(Berita beritaPayload){
 //        Toast.makeText(getApplicationContext(), beritaPayload.getCategory(), Toast.LENGTH_SHORT).show();
-        if (beritaPayload != null){
-            beritaViewModel.postBeritaRepository(beritaPayload).observe(this, beritaResponse -> {
-                berita = beritaResponse.getData();
-                finish();
-            });
-        }else{
-            Toast.makeText(getApplicationContext(), "Null Pak!", Toast.LENGTH_SHORT).show();
-        }
+//        System.out.println(beritaPayload.getTitle());
+//        System.out.println(beritaPayload.getCategory());
+//        System.out.println(beritaPayload.getUrl());
+
+        beritaViewModel.postBeritaRepository(beritaPayload).observe(this, beritaResponse -> {
+            berita = beritaResponse.getData();
+            finish();
+        });
 
     }
 }

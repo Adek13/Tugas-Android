@@ -50,16 +50,15 @@ public class BeritasRepository {
         MutableLiveData<BeritaResponse> beritaData = new MutableLiveData<>();
         beritaApi.postNasabah(beritaPayload).enqueue(new Callback<BeritaResponse>() {
             @Override
-            public void onResponse(Call<BeritaResponse> call,
-                                   Response<BeritaResponse> response) {
+            public void onResponse(Call<BeritaResponse> call, Response<BeritaResponse> response) {
                 if (response.isSuccessful()){
-                    beritaData.setValue(response.body());
+                    beritaData.postValue(response.body());
                 }
             }
 
             @Override
             public void onFailure(Call<BeritaResponse> call, Throwable t) {
-                beritaData.setValue(null);
+                beritaData.postValue(null);
             }
         });
         return beritaData;
