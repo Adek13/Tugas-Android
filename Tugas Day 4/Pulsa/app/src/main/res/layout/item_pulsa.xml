@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_weight="1"
+    android:layout_height="100dp"
+    android:layout_margin="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/dark1"
+    android:padding="20dp"
+    app:cardCornerRadius="10dp"
+    app:strokeColor="@color/purple1"
+    app:strokeWidth="0.3dp"
+    app:cardElevation="0dp"
+    android:checkable="true"
+    android:id="@+id/itemCardView">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/nominalTv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Rp.0"
+            android:gravity="center"
+            android:textColor="@color/font_black"
+            android:fontFamily="@font/nexa_bold"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
